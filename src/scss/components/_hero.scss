@@ -2,7 +2,7 @@
   position: relative;
   padding: 100px 0;
   height: 528px;
-  background-color: var(--color-bg);
+  background-color: var(--color-eastbay);
 
   &__container {
     position: relative;
@@ -42,7 +42,7 @@
     margin: 0;
     margin-bottom: var(--main-offset);
     max-width: calc(50% - 100px);
-    font: var(--middle-font);
+    font: var(--middle-book);
     color: var(--color-white);
   }
 }
