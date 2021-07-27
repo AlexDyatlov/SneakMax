@@ -1,4 +1,4 @@
-<header class="header">
+<header class="header fix-block">
   <div class="container grid header__container">
     <div class="header__left">
       <a class="logo header__logo">SneakMax</a>
@@ -27,12 +27,28 @@
         </ul>
       </nav>
       <div class="cart header__cart">
-        <button class="cart__btn ">
+        <button class="cart__btn">
           <svg>
             <use xlink:href="img/sprite.svg#cart"></use>
           </svg>
           <div class="cart__count">1</div>
         </button>
+        <div class="mini-cart">
+          <div class="mini-cart__top" data-simplebar>
+            <ul class="mini-cart__list">
+
+            </ul>
+          </div>
+          <div class="mini-cart__bottom">
+            <div class="mini-cart__itog">
+              <span class="mini-cart__txt">Итого:</span>
+              <span class="mini-cart__summ">0 ₽</span>
+            </div>
+            <button class="btn btn--primary mini-cart__btn" data-graph-path="cart-modal">
+              Перейти в корзину
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

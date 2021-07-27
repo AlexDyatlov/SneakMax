@@ -96,12 +96,12 @@ const quizTemplate = (data = [], dataLength = 0, options) => {
 	return `
 		<div class="quiz-question">
 			<h3 class="quiz-question__title">${title}</h3>
-			<ul class="quiz-question__answers list-reset">
+			<ul class="quiz-question__answers">
 				${answers.join('')}
 			</ul>
       <div class="quiz-bottom">
         <div class="quiz-question__count">${number} из ${dataLength}</div>
-        <button type="button" class="btn btn-reset btn--thirdly quiz-question__btn" data-next-btn>${nextBtnText}</button>
+        <button type="button" class="btn btn--thirdly quiz-question__btn" data-next-btn>${nextBtnText}</button>
       </div>
 		</div>
 	`
@@ -134,16 +134,16 @@ class Quiz {
 				this.$el.innerHTML = quizTemplate(this.data[this.counter], this.dataLength, this.options);
 
 				if ((this.counter + 1 == this.dataLength)) {
-					// this.$el.insertAdjacentHTML('beforeend', `<button type="button" data-send>${this.options.sendBtnText}</button>`)
-					// this.$el.querySelector('[data-next-btn]').remove();
+          document.querySelector('.quiz-question__answers').style.display = 'block';
         }
 			} else {
-				console.log('А все! конец!');
         document.querySelector('.quiz-questions').style.display = 'none';
-        document.querySelector('.asd').style.display = 'block';
+        document.querySelector('.last-question').style.display = 'block';
+        document.querySelector('.quiz-title').textContent = 'Ваша подборка готова!';
+        document.querySelector('.quiz-descr').textContent = 'Оставьте свои контактные данные, чтобы бы мы могли отправить  подготовленный для вас каталог';
 			}
 		} else {
-			console.log('Не валидно!')
+
 		}
 	}
 
