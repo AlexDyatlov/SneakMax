@@ -6,5 +6,47 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @include tablet {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &__nav {
+    .nav__list {
+      display: flex;
+      align-self: center;
+
+      @include small-tablet {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+
+    .nav__item {
+      &:not(:last-child) {
+        margin-right: var(--main-offset);
+      }
+
+      @include small-tablet {
+        margin-bottom: var(--small-offset);
+      }
+    }
+
+    .nav__link {
+      font: var(--small-book);
+      color: var(--color-white);
+    }
+  }
+
+  &__left {
+    @include tablet {
+      margin-bottom: var(--second-offset);
+    }
+  }
+
+  @include mobile {
+    padding: 14px 0;
   }
 }

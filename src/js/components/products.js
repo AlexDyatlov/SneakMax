@@ -18,17 +18,16 @@ const normalPrice = (str) => {
 
 const prodSlider = new Swiper('.modal-slider__container', {
   slidesPerView: 1,
-  spaceBetween: 20,
+  spaceBetween: 20
 });
 
 if (catalogList) {
   const loadProducts = (quantity = 5) => {
-    fetch('../data/data.json')
+    fetch('data/data.json')
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-
         dataLength = data.length;
 
         catalogList.innerHTML = '';
@@ -69,11 +68,24 @@ if (catalogList) {
           $clamp(el, {clamp: '22px'});
         });
 
+        const productsBtns = document.querySelectorAll('.product__btns');
+
+        productsBtns.forEach(el => {
+          el.addEventListener('focus', (e) => {
+            let parent = e.currentTarget.closest('.product__btns');
+            parent.classList.add('product__btns--active');
+          }, true);
+
+          el.addEventListener('blur', (e) => {
+            let parent = e.currentTarget.closest('.product__btns');
+            parent.classList.remove('product__btns--active');
+          }, true);
+        });
+
         cartLogic();
 
         modal = new GraphModal({
           isOpen: (modal) => {
-
             if (modal.modalContainer.classList.contains('prod-modal')) {
               const openBtnId = modal.previousActiveElement.dataset.id;
 
@@ -90,7 +102,7 @@ if (catalogList) {
   loadProducts(prodQuantity);
 
   const loadModalData = (id = 1) => {
-    fetch('../data/data.json')
+    fetch('data/data.json')
       .then((response) => {
         return response.json();
       })
@@ -211,7 +223,7 @@ if (catalogList) {
     if (prodQuantity >= dataLength) {
       catalogMore.style.display = 'none';
     } else {
-      catalogMore.style.display = 'block ';
+      catalogMore.style.display = 'block';
     }
   });
 }
@@ -243,7 +255,7 @@ const printQuantity = (num) => {
 };
 
 const loadCartData = (id = 1) => {
-  fetch('../data/data.json')
+  fetch('data/data.json')
     .then((response) => {
       return response.json();
     })
@@ -299,6 +311,8 @@ const cartLogic = () => {
       const id = e.currentTarget.dataset.id;
       loadCartData(id);
 
+      document.querySelector('.cart__btn').classList.remove('cart__btn--inactive');
+
       e.currentTarget.classList.add('product__btn--disabled')
     });
   });
@@ -314,8 +328,6 @@ const cartLogic = () => {
 
       parent.remove();
 
-      console.log(price);
-
       minusFullPrice(price);
       printFullPrice();
 
@@ -324,6 +336,7 @@ const cartLogic = () => {
       if (num == 0) {
         cartCount.classList.remove('cart__count--visible');
         miniCart.classList.remove('mini-cart--visible');
+        document.querySelector('.cart__btn').classList.add('cart__btn--inactive');
       }
 
       printQuantity(num);
@@ -352,5 +365,41 @@ orderModalShow.addEventListener('click', () => {
   } else {
     orderModalList.classList.add('cart-modal-order__list--visible');
     orderModalShow.classList.add('cart-modal-order__show--active');
+  }
+});
+
+orderModalList.addEventListener('click', (e) => {
+  if (e.target.classList.contains('mini-product__delete')) {
+    const self = e.target;
+    const parent = self.closest('.mini-cart__item');
+    const price = parseInt(priceWithoutSpaces(parent.querySelector('.mini-product__price').textContent));
+    const id = parent.dataset.id;
+
+    document.querySelector(`.add-to-cart-btn[data-id="${id}"]`).classList.remove('product__btn--disabled');
+
+    parent.style.displa = 'none';
+
+    setTimeout(() => {
+      parent.remove();
+    }, 100);
+
+    document.querySelector(`.mini-cart__item[data-id="${id}"]`).remove();
+
+    minusFullPrice(price);
+    printFullPrice();
+
+    setTimeout(() => {
+      let num = document.querySelectorAll('.mini-cart__list .mini-cart__item').length;
+
+      if (num == 0) {
+        cartCount.classList.remove('cart__count--visible');
+        miniCart.classList.remove('mini-cart--visible');
+        document.querySelector('.cart__btn').classList.add('cart__btn--inactive');
+
+        modal.close();
+      }
+
+      printQuantity(num);
+    }, 100);
   }
 });

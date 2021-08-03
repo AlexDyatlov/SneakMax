@@ -5,6 +5,15 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
+
+    @include tablet {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    @include small-tablet {
+      justify-content: center;
+    }
   }
 
   &__left {
@@ -13,6 +22,16 @@
     border-radius: 4px;
     width: 380px;
     background-color: var(--color-eastbay);
+
+    @include tablet {
+      margin-right: 0;
+      margin-bottom: 30px;
+    }
+
+    @include mobile {
+      margin-right: 0;
+      width: 100%;
+    }
   }
 
   &__right {
@@ -21,9 +40,13 @@
     align-items: center;
     width: calc(100% - (380px + var(--small-offset)));
     height: 100%;
+
+    @include tablet {
+      width: 100%;
+    }
   }
 
-  &__link {
+  &__logo {
     display: inline-block;
     margin-bottom: var(--second-offset);
   }
@@ -55,11 +78,16 @@
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(2, 160px);
     gap: 15px;
+
+    @include mobile {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   &__item {
     overflow: hidden;
     border-radius: 4px;
+    transition: opacity 0.3s ease-in-out;
 
     img {
       display: block;
@@ -75,7 +103,21 @@
     &:nth-child(3) {
       grid-column: 2 span;
       grid-row: 2 span;
+
+      @include mobile {
+        order: 1;
+      }
     }
+
+    @include desktop {
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  @include small-tablet {
+    padding: 40px 0;
   }
 }
 

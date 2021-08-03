@@ -10,8 +10,15 @@
     height: 100%;
     background: rgba(255, 255, 255, 0.6);
     opacity: 0;
-    visibility: hidden;
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+
+    &--active {
+      opacity: 1;
+    }
+
+    @include mobile {
+      opacity: 1;
+    }
   }
 
   &__image {
@@ -44,6 +51,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    outline: transparent;
     border-radius: 50%;
     width: 80px;
     height: 80px;
@@ -53,10 +61,11 @@
     svg {
       width: 30px;
       height: 30px;
+      fill: var(--color-white);
       object-fit: cover;
     }
 
-    &:hover {
+    &:focus {
       background-color: var(--color-main-hover);
     }
 
@@ -68,12 +77,24 @@
       opacity: 0.4;
       pointer-events: none;
     }
+
+    @include desktop {
+      &:hover {
+        background-color: var(--color-main-hover);
+      }
+    }
+
+    &:active {
+      background-color: var(--color-accent-hover);
+    }
   }
 
-  &:hover {
-    .product__btns {
-      opacity: 1;
-      visibility: visible;
+  @include desktop {
+    &:hover {
+      .product__btns {
+        opacity: 1;
+        visibility: visible;
+      }
     }
   }
 }
@@ -94,6 +115,11 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+
+    @include mobile {
+      width: 60px;
+      height: 60px;
     }
   }
 
@@ -122,6 +148,7 @@
   }
 
   &__delete {
+    flex-shrink: 0;
     width: 20px;
     height: 20px;
     font-size: 0;
@@ -190,6 +217,10 @@
       svg {
         display: none;
       }
+    }
+
+    @include mobile {
+      display: block;
     }
   }
 }

@@ -3,6 +3,10 @@
 
   &__left {
     grid-column: 3 span;
+
+    @include tablet {
+      display: none;
+    }
   }
 
   &__grid {
@@ -10,6 +14,10 @@
     flex-direction: column;
     align-items: center;
     grid-column: 9 span;
+
+    @include tablet {
+      grid-column: 12 span;
+    }
   }
 
   &__subtitle {
@@ -42,6 +50,25 @@
   &__more {
     margin-top: var(--big-offset);
   }
+
+  &__reset {
+    outline: transparent;
+    transition: color 0.3s ease-in-out;
+
+    &:focus {
+      color: var(--color-accent);
+    }
+
+    @include desktop {
+      &:hover {
+        color: var(--color-accent);
+      }
+    }
+
+    &:active {
+      color: var(--color-accent-hover);
+    }
+  }
 }
 
 .catalog-list {
@@ -49,6 +76,14 @@
 
   &__item {
     grid-column: 3 span;
+
+    @include mobile {
+      grid-column: 4 span;
+    }
+  }
+
+  @include mobile {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -84,6 +119,7 @@
   }
 
   &__input {
+    outline: transparent;
     border: 1px solid var(--color-gray);
     width: 50%;
     height: 50px;
@@ -142,4 +178,13 @@
       right: -3px;
     }
   }
+}
+
+.catalog-price__input.focus-visible {
+  background-color: var(--color-cameo);
+}
+
+.noUi-handle:focus {
+  outline: transparent;
+  background-color: var(--color-accent);
 }
